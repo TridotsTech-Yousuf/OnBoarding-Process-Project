@@ -1,0 +1,124 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "creation": "2025-06-10 11:09:50.151030",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "boarded",
+  "section_break_ledr",
+  "passenger_name",
+  "column_break_fxsf",
+  "reservation_number",
+  "section_break_oifa",
+  "is_verified",
+  "seat_number",
+  "column_break_fgdv",
+  "e_ticket_number",
+  "section_break_dboa",
+  "status",
+  "column_break_xesk",
+  "class_of_service"
+ ],
+ "fields": [
+  {
+   "fieldname": "passenger_name",
+   "fieldtype": "Data",
+   "label": "Passenger Name"
+  },
+  {
+   "fieldname": "column_break_fxsf",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "reservation_number",
+   "fieldtype": "Data",
+   "label": "Reservation Number"
+  },
+  {
+   "fieldname": "section_break_oifa",
+   "fieldtype": "Section Break"
+  },
+  {
+   "default": "0",
+   "fieldname": "is_verified",
+   "fieldtype": "Check",
+   "label": "is Verified",
+   "read_only": 1
+  },
+  {
+   "fieldname": "seat_number",
+   "fieldtype": "Data",
+   "label": "Seat Number",
+   "read_only": 1
+  },
+  {
+   "fieldname": "section_break_dboa",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "e_ticket_number",
+   "fieldtype": "Data",
+   "label": "E Ticket Number",
+   "read_only": 1
+  },
+  {
+   "fieldname": "status",
+   "fieldtype": "Select",
+   "label": "Status",
+   "options": "\nConfirmed\nWaiting List\nRejected",
+   "read_only": 1
+  },
+  {
+   "fieldname": "class_of_service",
+   "fieldtype": "Select",
+   "label": "Class of Service",
+   "options": "\nEconomy\nBusiness",
+   "read_only": 1
+  },
+  {
+   "fieldname": "column_break_fgdv",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "column_break_xesk",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "section_break_ledr",
+   "fieldtype": "Section Break"
+  },
+  {
+   "default": "0",
+   "fieldname": "boarded",
+   "fieldtype": "Check",
+   "label": "Boarded"
+  }
+ ],
+ "grid_page_length": 50,
+ "hide_toolbar": 1,
+ "index_web_pages_for_search": 1,
+ "issingle": 1,
+ "links": [],
+ "modified": "2025-06-10 12:40:37.365914",
+ "modified_by": "Administrator",
+ "module": "Luggage Tracking",
+ "name": "Boarding Verification",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "print": 1,
+   "read": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "row_format": "Dynamic",
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}

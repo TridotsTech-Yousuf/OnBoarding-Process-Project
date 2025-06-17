@@ -1,0 +1,1 @@
+frappe.show_alert("Doctype JS Included")

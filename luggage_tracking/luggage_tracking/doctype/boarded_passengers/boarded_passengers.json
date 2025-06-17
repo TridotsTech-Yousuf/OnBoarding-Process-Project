@@ -1,0 +1,123 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "autoname": "format:BP-{####}",
+ "creation": "2025-06-10 12:58:01.370894",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "boarded",
+  "section_break_pdzn",
+  "passenger_name",
+  "column_break_qtyn",
+  "reservation_number",
+  "section_break_gxvn",
+  "is_verified",
+  "seat_number",
+  "column_break_ooif",
+  "e_ticket_number",
+  "section_break_qauw",
+  "status",
+  "column_break_hytg",
+  "class_of_service"
+ ],
+ "fields": [
+  {
+   "default": "0",
+   "fieldname": "boarded",
+   "fieldtype": "Check",
+   "label": "Boarded"
+  },
+  {
+   "default": "0",
+   "fieldname": "is_verified",
+   "fieldtype": "Check",
+   "label": "Is Verified"
+  },
+  {
+   "fieldname": "seat_number",
+   "fieldtype": "Data",
+   "label": "Seat Number"
+  },
+  {
+   "fieldname": "passenger_name",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Passenger Name",
+   "unique": 1
+  },
+  {
+   "fieldname": "reservation_number",
+   "fieldtype": "Data",
+   "label": "Reservation Number"
+  },
+  {
+   "fieldname": "e_ticket_number",
+   "fieldtype": "Data",
+   "label": "E Ticket Number"
+  },
+  {
+   "fieldname": "status",
+   "fieldtype": "Select",
+   "label": "Status",
+   "options": "\nConfirmed\nWaiting List\nRejected"
+  },
+  {
+   "fieldname": "class_of_service",
+   "fieldtype": "Select",
+   "label": "Class of Service",
+   "options": "\nEconomy\nBusiness"
+  },
+  {
+   "fieldname": "section_break_pdzn",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "column_break_qtyn",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "section_break_gxvn",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "column_break_ooif",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "section_break_qauw",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "column_break_hytg",
+   "fieldtype": "Column Break"
+  }
+ ],
+ "grid_page_length": 50,
+ "index_web_pages_for_search": 1,
+ "links": [],
+ "modified": "2025-06-10 13:35:47.122385",
+ "modified_by": "Administrator",
+ "module": "Luggage Tracking",
+ "name": "Boarded Passengers",
+ "naming_rule": "Expression",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "row_format": "Dynamic",
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}

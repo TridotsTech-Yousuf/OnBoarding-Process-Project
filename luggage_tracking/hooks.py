@@ -8,8 +8,10 @@ app_license = "mit"
 # Apps
 # ------------------
 
+# used when your app depends on other apps to work. For example, 
+# if luggage_tracking needs another app like erpnext, you would write required_apps = ["erpnext"].
 # required_apps = []
-
+ 
 # Each item in the list will be shown as an app in the apps page
 # add_to_apps_screen = [
 # 	{
@@ -48,10 +50,13 @@ app_license = "mit"
 # doctype_tree_js = {"doctype" : "public/js/doctype_tree.js"}
 # doctype_calendar_js = {"doctype" : "public/js/doctype_calendar.js"}
 
+
+
 # Svg Icons
 # ------------------
 # include app icons in desk
 # app_include_icons = "luggage_tracking/public/icons.svg"
+
 
 # Home Pages
 # ----------
@@ -241,4 +246,138 @@ app_license = "mit"
 # default_log_clearing_doctypes = {
 # 	"Logging DocType Name": 30  # days to retain logs
 # }
+
+# ==========================================================================
+
+test_string = "value"
+test_list = ["value"]
+test_dict = {
+    "key": "value"
+}
+
+# Desk
+app_include_js = [
+    "https://checkout.razorpay.com/v1/checkout.js"
+]
+# app_include_js = "/assets/luggage_tracking/js/app_include.js" 
+
+# Portal 
+# web_include_js = "/assets/luggage_tracking/js/web_include.js" 
+
+# Web Form
+# webform_include_js = { "Passenger Verification": "public/js/webform_include.js"} 
+
+# Page
+# page_js = {"test": "public/js/pageJs.js"} 
+
+# Sounds - frappe.utils.play_sound("ping")
+# sounds = [
+#     {"name": "ping", "src": "/assets/luggage_tracking/sound/ping.mp3", "volume": 0.5}
+# ]
+
+# Install Hooks - Not Working # -----------------------------------------------------------------------
+# Uninstall Hooks - Not Working # -----------------------------------------------------------------------
+
+# Migrate Hooks
+# before_migrate = "luggage_tracking.api.before_migrate"
+# after_migrate = "luggage_tracking.api.after_migrate"
+
+# Test Hooks
+# before_tests = "luggage_tracking.api.before_test"
+
+# File Hooks - Not Working # -----------------------------------------------------------------------
+# Email Hooks - Not Working # -----------------------------------------------------------------------
+
+# Extend Boot Info - console.log(frappe.boot.my_global_key)
+# extend_bootinfo = "luggage_tracking.api.boot_session"
+
+# Website Context 
+# Working
+# website_context = {
+    # "favicon": "/assets/luggage_tracking/image/icon.png"
+# }
+# Not Working
+# update_website_context = "luggage_tracking.api.custom_website_context"
+
+# Website Controller Context - Page Changing but data not passing from python to html
+# extend_website_page_controller_context = {
+    # "frappe.www.404": "luggage_tracking.api.get_context"
+# }
+
+# Web pages with dynamic routes - Not Working # ---------------------------------------------------
+
+# Website Clear Cache - bench clear-website-cache
+# website_clear_cache = "luggage_tracking.api.clear_website_cache"
+
+# Website Redirects 
+# website_redirects = [
+#     {"source": "/hello", "target": "/about"},
+# ]
+
+# Website Route Rules
+# website_route_rules = [
+#     {"from_route": "/serma", "to_route": "/hello"},
+# ]
+
+# Website Path Resolver - Not Working # ----------------------------------------------------------
+
+# Website 404 - Not Working # --------------------------------------------------------------------
+
+homepage = "homepage"
+
+
+scheduler_events = {
+    "Cron": {
+        "0 0 * * *": [
+            "luggage_tracking.api.export_passenger_data"
+        ] 
+    } 
+} 
+
+# -------------------------------------------------------------
+
+# before_install = "luggage_tracking.install.before_install"
+# before_install = "app.setup.install.before_install"
+# before_install = "luggage_tracking.api.before_install"
+# adter_install = "luggage_tracking.api.after_install"
+
+# before_write_file = "luggage_tracking.api.before_write"
+# write_file = "luggage_tracking.api.write_file"
+# delete_file_data_content = "luggage_tracking.api.delete_file"
+
+
+# get_web_pages_with_dynamic_routes = "script.get_web_pages_with_dynamic_routes"
+
+
+
+
+# website_path_resolver = "luggage_tracking.api.resolve_path"
+
+
+
+
+
+
+
+
+# website_catch_all = "not_found"
+
+
+
+
+
+
+
+# override_email_send = "app.overrides.email.send"
+# get_sender_details = "app.overrides.email.get_sender_details"
+
+
+
+
+# app_include_icons = "luggage_tracking/public/icon.png"
+
+# doctype_js = {"doctype" : "public/js/doctypeJs.js"} 
+# doctype_list_js = {"doctype" : "public/js/doctypelistJs.js"} 
+
+# after_install = "apps.luggage_tracking.luggage_tracking.api.after_install"
 
