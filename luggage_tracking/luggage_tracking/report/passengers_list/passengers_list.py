@@ -1,5 +1,7 @@
 # Copyright (c) 2025, Mohammed Yousuf and contributors
 # For license information, please see license.txt
+# message = "This report shows the current verification status of passengers."
+# return columns, data, message, chart, report
 
 import frappe
 
@@ -22,16 +24,34 @@ def execute(filters=None):
 
 	report = get_report_summary(data)
 
+	message = "This is a message" 
+
 	return columns, data, None, chart, report
 
+# def get_cs_data(filters):
+# 	conditions = get_conditions(filters)
+# 	data = frappe.get_all(
+# 		doctype="Passenger Verification",
+# 		fields = ["passenger_name","is_verified"],
+# 		filters = conditions
+# 	)
+# 	return data
+
 def get_cs_data(filters):
-	conditions = get_conditions(filters)
-	data = frappe.get_all(
-		doctype="Passenger Verification",
-		fields = ["passenger_name","is_verified"],
-		filters = conditions
-	)
-	return data
+    conditions = get_conditions(filters)
+    
+    if "passenger_name" in conditions:
+        name_value = conditions.pop("passenger_name")
+        conditions["passenger_name"] = ["like", f"%{name_value}%"]
+
+    data = frappe.get_list(
+        doctype="Passenger Verification",
+        fields=["passenger_name", "is_verified"],
+        filters=conditions
+    )
+    return data
+
+
 
 def get_conditions(filters):
 	conditions = {}

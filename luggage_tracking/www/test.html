@@ -1,0 +1,377 @@
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Tridots Tech Private Limited</title>
+  <style>
+    :root {
+      --color1: #689F38;
+      --color2: #007ee5;
+    }
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      background-color: #FEFCFF;
+      color: var(--color2);
+      font-family: sans-serif;
+    }
+    #home {
+      height: 100vh;
+      position: relative;
+    }
+
+    .initial-image,
+    .page-content {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      text-align: center;
+    }
+
+    .initial-image img {
+      width: 650px;
+      height: auto;
+      opacity: 0;
+      animation: logoFadeInOut 5s ease-in;
+    }
+
+    @keyframes logoFadeInOut {
+      0%   { opacity: 0; }
+      25%  { opacity: 0.5; }
+      50%  { opacity: 1; }
+      75%  { opacity: 0.5; }
+      100% { opacity: 0; }
+    }
+
+    .page-content {
+      opacity: 0;
+      transition: opacity 3s ease;
+    }
+
+    .fade-in {
+      opacity: 1;
+    }
+
+    .page-content{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 10px;
+    }
+
+    .page-content img{
+        width: 300px;
+        height: 300px;
+    }
+
+    .page-readings{
+        width: 580px;
+        text-transform: uppercase;
+    }
+
+    .page-readings h1{
+        margin-bottom: 10px;
+    }
+
+    .page-readings p{
+        font-size: 14px;
+        line-height: 22px;
+    }
+
+    .page-readings p:nth-child(3){
+        color: black;
+    }
+
+    .page-readings sup,span{
+        color: var(--color1);
+    }
+
+    .page-readings sup{
+        font-size: 14px;
+    }
+
+    .circle1{
+        width: 300px;
+        height: 300px;
+        background-color: var(--color2);
+        opacity: 0.1;   
+        border-radius: 50%;
+        position: absolute;
+        top: -20%;
+        left: -10%;
+    }
+
+    .circle2{
+        width: 150px;
+        height: 150px;
+        background-color: var(--color2);
+        opacity: 0.1;   
+        border-radius: 50%;
+        position: absolute;
+        top: 65%;
+        left: 15%;
+    }
+
+    .circle3{
+        width: 75px;
+        height: 75px;
+        background-color: var(--color1);
+        opacity: 0.1;   
+        border-radius: 50%;
+        position: absolute;
+        top: 20%;
+        left: 40%;
+    }
+    
+    .circle4{
+        width: 400px;
+        height: 400px;
+        background-color: var(--color1);
+        opacity: 0.1;   
+        border-radius: 50%;
+        position: absolute;
+        top: 80%;
+        left: 60%;
+    }
+
+    .circle5{
+        width: 800px;
+        height: 800px;
+        background-color: var(--color2);
+        opacity: 0.1;   
+        border-radius: 50%;
+        position: absolute;
+        top: -100%;
+        right: -20%;
+    }
+
+  </style>
+</head>
+<body>
+  <section id="home">
+    <div class="initial-image" id="logo">
+       <img src="/assets/luggage_tracking/image/tridotsfullLogo.png" alt="Tridots Tech Full Logo" />
+    </div>
+
+    <div class="page-content" id="content">
+       <img src="/assets/luggage_tracking/image/tridotsLogo.png" alt="Tridots Tech Logo" />
+       <div class="page-readings">
+            <h1>Celebrating 1<span>9</span><sup>th</sup> Anniversary - <span>02 July 2025</span></h1>
+            <p>Wishing You All Happy Anniversary.</p>
+            <p>Thank You to our Amazing Team - Your Dedication and talent have powered 19 years of <span>Tridots Tech's</span> success.</p>
+       </div> 
+    </div>
+
+    <div class="circle1"></div>
+    <div class="circle2"></div>
+    <div class="circle3"></div>
+    <div class="circle4"></div>
+    <div class="circle5"></div>
+
+
+  </section>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      setTimeout(() => {
+        document.getElementById("content").classList.add("fade-in");
+      }, 5000);
+    });
+  </script>
+</body>
+</html> -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Tridots Tech Private Limited</title>
+  <style>
+    :root {
+      --color1: #689F38;
+      --color2: #007ee5;
+    }
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html, body {
+      width: 100%;
+      height: 100%;
+      overflow: hidden; /* ✅ Prevent scrolling */
+      background-color: #FEFCFF;
+      color: var(--color2);
+      font-family: sans-serif;
+    }
+
+    #home {
+      width: 100%;
+      height: 100%;
+      position: relative;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .page-content {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 40px;
+      z-index: 10;
+    }
+
+    .page-content img {
+      width: 250px;
+      height: 250px;
+    }
+
+    .page-readings {
+      width: 600px;
+      text-transform: uppercase;
+    }
+
+    .page-readings h1 {
+      margin-bottom: 12px;
+      font-size: 20px;
+      color: var(--color2);
+    }
+
+    .page-readings p {
+      font-size: 14px;
+      line-height: 22px;
+    }
+
+    .page-readings p:nth-child(3) {
+      color: black;
+    }
+
+    .page-readings sup, span {
+      color: var(--color1);
+    }
+
+    .page-readings sup {
+      font-size: 14px;
+    }
+
+    .circle1, .circle2, .circle3, .circle4, .circle5 {
+      position: absolute;
+      border-radius: 50%;
+      opacity: 0.1;
+      z-index: 1;
+    }
+
+    .circle1{
+        width: 300px;
+        height: 300px;
+        background-color: var(--color2);
+        top: -20%;
+        left: -10%;
+    }
+
+    .circle2{
+        width: 150px;
+        height: 150px;
+        background-color: var(--color2);
+        top: 65%;
+        left: 15%;
+    }
+
+    .circle3{
+        width: 75px;
+        height: 75px;
+        background-color: var(--color1);
+        top: 20%;
+        left: 40%;
+    }
+    
+    .circle4{
+        width: 400px;
+        height: 400px;
+        background-color: var(--color1);
+        top: 80%;
+        left: 60%;
+    }
+
+    .circle5{
+        width: 800px;
+        height: 800px;
+        background-color: var(--color2);
+        top: -100%;
+        right: -20%;
+    }
+
+    .initial-image,
+    .page-content {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      text-align: center;
+    }
+
+    .initial-image img {
+      width: 650px;
+      height: auto;
+      opacity: 0;
+      animation: logoFadeInOut 5s ease-in;
+    }
+
+    @keyframes logoFadeInOut {
+      0%   { opacity: 0; }
+      25%  { opacity: 0.5; }
+      50%  { opacity: 1; }
+      75%  { opacity: 0.5; }
+      100% { opacity: 0; }
+    }
+
+    .page-content {
+      opacity: 0;
+      transition: opacity 5s ease;
+    }
+
+    .fade-in {
+      opacity: 1;
+    }
+
+  </style>
+</head>
+<body>
+  <section id="home">
+        <div class="initial-image" id="logo">
+       <img src="/assets/luggage_tracking/image/tridotsfullLogo.png" alt="Tridots Tech Full Logo" />
+    </div>
+    <div class="page-content" id="content">
+      <img src="/assets/luggage_tracking/image/tridotsLogo.png" alt="Tridots Tech Logo" />
+      <div class="page-readings">
+        <h1>Celebrating 1<span>9</span><sup>th</sup> Anniversary - <span>02 July 2025</span></h1>
+        <p>Wishing You All Happy Anniversary.</p>
+        <p>Thank you to our amazing team – your dedication and talent have powered 19 years of <span>Tridots Tech's</span> success.</p>
+      </div>
+    </div>
+
+    <!-- Decorative circles -->
+    <div class="circle1"></div>
+    <div class="circle2"></div>
+    <div class="circle3"></div>
+    <div class="circle4"></div>
+    <div class="circle5"></div>
+  </section>
+
+    <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      setTimeout(() => {
+        document.getElementById("content").classList.add("fade-in");
+      }, 5000);
+    });
+  </script>
+</body>
+</html>

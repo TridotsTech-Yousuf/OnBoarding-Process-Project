@@ -249,16 +249,16 @@ app_license = "mit"
 
 # ==========================================================================
 
-test_string = "value"
-test_list = ["value"]
-test_dict = {
-    "key": "value"
-}
+# test_string = "value"
+# test_list = ["value"]
+# test_dict = {
+#     "key": "value"
+# }
 
-# Desk
-app_include_js = [
-    "https://checkout.razorpay.com/v1/checkout.js"
-]
+# # Desk
+# app_include_js = [
+#     "https://checkout.razorpay.com/v1/checkout.js"
+# ]
 # app_include_js = "/assets/luggage_tracking/js/app_include.js" 
 
 # Portal 
@@ -320,10 +320,73 @@ app_include_js = [
 # ]
 
 # Website Path Resolver - Not Working # ----------------------------------------------------------
+# website_path_resolver = "inventory_management.utils.custom_path_resolver"
+
 
 # Website 404 - Not Working # --------------------------------------------------------------------
 
-homepage = "homepage"
+# Default Homepage
+# homepage = "homepage"
+# Default Homepage - Role based homepage 
+# role_home_page = {
+#     "Accounts Manager": "accountsManager",
+#     "Sales Manager": "salesManager"
+# }
+# Default Homepage - More control over the logic 
+# get_website_user_home_page = "luggage_tracking.api.default_homepage"
+
+# Portal Side Bar
+# portal_menu_items = [
+#     {"title": "Account", "route": "/accountsManager", "role": "Accounts Manager"},
+#     {"title": "Sales", "route": "/salesManager", "role": "Accounts Manager"},
+# ]
+# synced with the database. Not Working ----------------------------------------------------
+# standard_portal_menu_items = [
+#     {"title": "Account", "route": "/accountsManager", "role": "Accounts Manager"},
+#     {"title": "Sales", "route": "/salesManager", "role": "Accouts Manager"},
+# ]
+
+# Brand HTML - Image Not Coming --------------------------------
+# brand_html = '<div> <img src="/assets/luggage_tracking/image/y.jpg" style="height: 60px;"> Yousuf</div>'
+
+# Base Template 
+# base_template = "luggage_tracking/templates/my_custom_base.html"
+
+# Not working -----------------------------------------------------------------------------
+# base_template_map = {
+#     r"docs.*": "app/templates/doc_template.html"
+# }
+
+# Not working -----------------------------------------------------------------------------
+# Integrations - Braintree Success Page 
+# braintree_success_page = "luggage_tracking.api.braintree_success_page"
+
+# Calenders - Doctype 
+# calendars = ["Passenger Verification"]
+
+# Clear Cache
+# clear_cache = "luggage_tracking.cache.clear_cache"
+
+# Default Mail Footer 
+# default_mail_footer = """
+#  <div>
+#  Sent via <a href="https://youtube.com" target="_blank">Youtube</a>
+# </div>
+# """
+
+# Session Hook
+# on_login = "luggage_tracking.utils.successful_login"
+# on_session_creation = "luggage_tracking.utils.allocate_free_credits"
+# on_logout = "luggage_tracking.utils.clear_user_cache"
+
+# Auth Hook
+# auth_hooks = ["app.overrides.validate_custom_jwt"]
+
+# Fixtures
+# fixtures = [
+#     # export all records from the Category table
+#     "Passenger Verification"
+# ]
 
 
 scheduler_events = {
@@ -360,6 +423,9 @@ scheduler_events = {
 
 
 
+
+
+
 # website_catch_all = "not_found"
 
 
@@ -380,4 +446,3 @@ scheduler_events = {
 # doctype_list_js = {"doctype" : "public/js/doctypelistJs.js"} 
 
 # after_install = "apps.luggage_tracking.luggage_tracking.api.after_install"
-

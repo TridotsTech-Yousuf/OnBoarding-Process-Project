@@ -3,6 +3,11 @@ import csv
 import io
 import json
 from luggage_tracking.search.passenger_search import PassengerSearch
+from frappe.query_builder import DocType
+from frappe.query_builder.functions import Count
+import random
+# from frappe import csrf
+
 
 def export_passenger_data():
     # Get the data
@@ -100,4 +105,120 @@ def search_luggage(passenger_name):
 
     else:
         frappe.msgprint(f"Error while searching luggage", "Luggage Search Error")
+
+def default_homepage(user):
+    user_roles = frappe.get_roles(user)
+    if "System Manager" in user_roles:
+        # print("System Manager -------------------------------------------------------------")
+        return "admin"
+    elif "Sales Manager" in user_roles:
+        # print("Sales Manager -------------------------------------------------------------")
+        return "salesManager"
+    elif "Accounts Manager" in user_roles:
+        # print("Accounts Manager -------------------------------------------------------------")
+        return "accountsManager"
+    else:
+        return "index"
+    
+def braintree_success_page(data):
+    print(data.reference_doctype, "-----------------------------------------")
+    print(data.reference_docname,"----------------------------------------------")
+    return "thank-you"
+
+
+@frappe.whitelist()
+def get_passenger_luggage():
+    Passenger = DocType("Passenger Verification")
+    query = (
+        # Simple QB Structure
+        # frappe.qb.from_(Boarding).select(Boarding.passenger_name) 
+
+        # Including Where
+        # frappe.qb.from_(Boarding).select("*").where(Boarding.passenger_name=="Rinoza Samad") 
+
+        # Including AND , OR Conditions
+        # frappe.qb.from_(Boarding).select("*").where((Boarding.passenger_name=="Rinoza Samad") | (Boarding.passenger_name=="Angelina Chistian") ) 
+
+        # Including Functions like COUNT, SUM, etc.
+        # frappe.qb.from_(Boarding).select(Count("*").as_("total_passengers"))
+
+        # frappe.qb.from_(Passenger).select("*").where(Passenger.is_verified==1) 
+
+        frappe.qb.from_(Passenger).select("*")
+    )
+    result = query.run(as_dict=True)
+
+    if result:
+        return {"status": "success", "data": result}
+    else:
+        return {"status": "failed"}
+
+@frappe.whitelist()
+def get_verified_passenger_luggage():
+    Passenger = DocType("Passenger Verification")
+
+    verified_passengers_list = (
+        frappe.qb.from_(Passenger)
+        .select("*")
+        .where(Passenger.is_verified == 1)
+    )
+
+    count_of_list = (
+        frappe.qb.from_(Passenger)
+        .select(Count("*").as_("total_verified_passengers"))
+        .where(Passenger.is_verified == 1)
+    )
+
+    result = verified_passengers_list.run(as_dict=True)
+    count_result = count_of_list.run(as_dict=True)
+
+    if result:
+        return {
+            "status": "success",
+            "data": result,
+            "count": count_result[0]["total_verified_passengers"]
+        }
+    else:
+        return {
+            "status": "failed",
+            "message": "No verified passengers found"
+        }
+
+
+
+@frappe.whitelist()
+def get_luggage_details():
+    print("Query Builder Fetch Started -----------------------------")
+
+    # Define tables
+    Passenger = DocType("Passenger Verification")
+    Luggage = DocType("Luggage")
+    LuggageDetails = frappe.qb.Table("tabLuggage Details")
+
+    # Query with JOIN on child table via `parent`
+    query = (
+        frappe.qb
+        .from_(Passenger)
+        .join(Luggage)
+        .on(Passenger.passenger_name == Luggage.passenger_name)
+        .join(LuggageDetails)
+        .on(Luggage.name == LuggageDetails.parent)
+        .select("*")
+    )
+
+    result = query.run(as_dict=True)
+    # print(result, "-------------------- All Luggage with Child Details --------------------------")
+
+    if result:
+        return {
+            "status": "success",
+            "data": result,
+            "count": len(result)
+        }
+    else:
+        return {
+            "status": "failed",
+            "message": "No verified luggage data found"
+        }
+
 
