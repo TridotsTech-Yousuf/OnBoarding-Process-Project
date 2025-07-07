@@ -1,20 +1,27 @@
 {
  "actions": [],
- "allow_rename": 1,
+ "autoname": "autoincrement",
  "creation": "2025-07-03 15:26:50.383187",
  "doctype": "DocType",
  "engine": "InnoDB",
  "field_order": [
+  "amended_from",
   "name1",
   "checked",
   "status",
+  "column_break_cvms",
+  "link_field",
+  "weight",
+  "section_break_dyce",
   "description",
-  "amended_from"
+  "section_break_efqz",
+  "form_api_child_table"
  ],
  "fields": [
   {
    "fieldname": "name1",
    "fieldtype": "Data",
+   "in_list_view": 1,
    "label": "Name"
   },
   {
@@ -43,16 +50,46 @@
    "print_hide": 1,
    "read_only": 1,
    "search_index": 1
+  },
+  {
+   "fieldname": "column_break_cvms",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "link_field",
+   "fieldtype": "Link",
+   "label": "Link Field",
+   "options": "FRM AND Frappe Example"
+  },
+  {
+   "fieldname": "section_break_dyce",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "section_break_efqz",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "form_api_child_table",
+   "fieldtype": "Table",
+   "label": "Form API Child Table",
+   "options": "Luggage Details"
+  },
+  {
+   "fieldname": "weight",
+   "fieldtype": "Data",
+   "label": "Weight"
   }
  ],
  "grid_page_length": 50,
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2025-07-04 12:51:02.400936",
+ "modified": "2025-07-07 17:32:39.552936",
  "modified_by": "Administrator",
  "module": "Luggage Tracking",
  "name": "Form API",
+ "naming_rule": "Autoincrement",
  "owner": "Administrator",
  "permissions": [
   {

@@ -11,7 +11,7 @@ class FRMANDFrappeExample(Document):
 	# @staticmethod
 	@frappe.whitelist()
 	def greet(self, static_name):
-		frappe.msgprint(f"Greet Static Name:{static_name}")
+		frappe.msgprint(f"Greet Static Name: {static_name}")
 		# frappe.msgprint()
 		return "Greet"
 	

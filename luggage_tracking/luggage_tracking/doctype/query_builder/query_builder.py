@@ -6,6 +6,7 @@ from frappe.model.document import Document
 from frappe.query_builder import DocType, Table
 from frappe.query_builder.functions import Count
 from pypika import CustomFunction
+from frappe.query_builder.custom import ConstantColumn
 
 
 
@@ -25,7 +26,7 @@ class QueryBuilder(Document):
 		# self.usingQB11()	
 		# self.usingQB12()
 		# self.usingQB13()
-		self.usingQB14()
+		# self.usingQB14()
 		self.usingQB15()
 
 	# Raw Query
@@ -54,7 +55,7 @@ class QueryBuilder(Document):
 	
 	# Alternative for frappe.qb.Doctype(name_of_table)
 	def usingQB3(self):
-		doctype = DocType("Query Builder") 
+		doctype = frappe.qb.DocType("Query Builder") 
 		result = (frappe.qb.from_(doctype).select(doctype.name1, doctype.owner)).run()
 		for row in result:
 			print(row,"UsingQB3")
@@ -67,7 +68,7 @@ class QueryBuilder(Document):
 
 	# Alternative for frappe.qb.Table(name_of_table)
 	def usingQB5(self):
-		my_table = Table("tabQuery Builder") 
+		my_table = frappe.qb.Table("tabQuery Builder") 
 		result = (frappe.qb.from_(my_table).select(my_table.name1, my_table.owner)).run()
 		for row in result:
 			print(row,"UsingQB5")
@@ -82,8 +83,12 @@ class QueryBuilder(Document):
 	# Differentiating Run() and Walk()
 	def usingQB7(self):
 		QueryBuilder = DocType("Query Builder")
+		query = frappe.qb.from_(QueryBuilder).select("name1")
 		query1 = (frappe.qb.from_(QueryBuilder).select("name1")).run()
-		query2 = (frappe.qb.from_(QueryBuilder).select("name1")).walk()
+		query2 = (frappe.qb.select("name1").from_(QueryBuilder)).walk()
+		print(str(query),"Using Query-------------------")
+		print(query.get_sql(),"Using Query-------------------")
+		print(str(query)==query.get_sql(),"===========")
 		print(query1,"UsingQB7 Query1")
 		print(query2,"UsingQB7 Query2")
 
@@ -126,25 +131,26 @@ class QueryBuilder(Document):
 		query9 = (frappe.qb.from_(Passenger).select(Count(Passenger.name))).run()
 		print(query9,"UsingQB13")
 
+	# Custom Functions
 	def usingQB14(self):
-		# Passenger = DocType("Passenger Verification")
-		# TravelDifference = CustomFunction(Passenger, ['departure_time', 'arrival_time'])
-
-		# query10 = (frappe.qb.from_(Passenger).select(TravelDifference(Passenger.departure_time,Passenger.arrival_time))).run()
-		# print(query10,"UsingQB14")
-		def usingQB14(self):
 			Passenger = DocType("Passenger Verification")
 			TimeDiff = CustomFunction("TIMEDIFF", ["departure_time", "arrival_time"])
 
-			query = (frappe.qb.from_(Passenger).select(TimeDiff(Passenger.departure_time, Passenger.arrival_time))			).run()
+			query = (frappe.qb.from_(Passenger).select(TimeDiff(Passenger.departure_time, Passenger.arrival_time))).run()
 
 			print(query, "UsingQB14")
 
 	def usingQB15(self):
-		# Get a query builder instance for the 'User' DocType
-		query = frappe.qb.get_query("Example")
+		Passenger = DocType("Passenger Verification")
+		query11 = (frappe.qb.from_(Passenger).select("passenger_name", ConstantColumn("John").as_("User"))).run()
 
-		# Execute the query and fetch results
-		example = query.run()
+		print(query11, "UsingQB15")
 
-		print(example,"UsingQB15")
+	# def usingQB15(self):
+	# 	# Get a query builder instance for the 'User' DocType
+	# 	query = frappe.qb.get_query("Example")
+
+	# 	# Execute the query and fetch results
+	# 	example = query.run()
+
+	# 	print(example,"UsingQB15")

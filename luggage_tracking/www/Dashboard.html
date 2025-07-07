@@ -4,28 +4,245 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard</title>
+    <style>
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: Arial, sans-serif;
+    }
+
+    body {
+        background-color: #f5f7fa;
+        color: #333;
+        padding: 20px;
+    }
+
+    h1 {
+        font-size: 24px;
+        margin-bottom: 10px;
+        text-align: center;
+    }
+
+    .overview-title {
+        font-size: 32px;
+        font-weight: bold;
+        margin-bottom: 30px;
+        text-align: center;
+        color: #2c3e50;
+    }
+
+    .summary-container,
+    .line-container,
+    .month-summary {
+        display: flex;
+        justify-content: space-around;
+        gap: 20px;
+        margin: 20px 0;
+        flex-wrap: wrap;
+    }
+
+    .summary-container > div,
+    .line-container > div,
+    .month-summary > div {
+        background-color: #fff;
+        border: 1px solid #ddd;
+        padding: 20px;
+        flex: 1;
+        min-width: 150px;
+        text-align: center;
+        border-radius: 10px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+
+    table {
+        width: 100%;
+        margin-top: 30px;
+        border-collapse: collapse;
+        background-color: #fff;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+
+    table th,
+    table td {
+        padding: 12px;
+        text-align: center;
+        border: 1px solid #ccc;
+        font-size: 14px;
+    }
+
+    table th {
+        background-color: #2980b9;
+        color: white;
+        font-weight: bold;
+    }
+
+    table tr:nth-child(even) {
+        background-color: #f2f2f2;
+    }
+
+    table tr:hover {
+        background-color: #e0f7fa;
+    }
+
+    .section-header {
+        margin-top: 40px;
+        margin-bottom: 10px;
+        font-size: 28px;
+        color: #34495e;
+        text-align: center;
+    }
+</style>
+
 </head>
 <body>
     <div>
-        <h1>Today's Overview</h1>
-        <div>
-            <div class="assembly">
-                <h1>Assembly</h1>
-                <h1>0</h1>
-            </div>
-            <div class="tested">
-                <h1>Tested</h1>
-                <h1>0</h1>
-            </div>
-            <div class="repair">
-                <h1>Repair</h1>
-                <h1>0</h1>
-            </div>
-            <div class="fg">
-                <h1>FG</h1>
-                <h1>0</h1>
-            </div>
-        </div>
+<h1 class="overview-title">Today's Overview</h1>
+<div class="summary-container">
+  <div class="assembly">
+    <h1>Assembly</h1>
+    <h1>0</h1>
+  </div>
+  <div class="tested">
+    <h1>Tested</h1>
+    <h1>0</h1>
+  </div>
+  <div class="repair">
+    <h1>Repair</h1>
+    <h1>0</h1>
+  </div>
+  <div class="fg">
+    <h1>FG</h1>
+    <h1>0</h1>
+  </div>
+</div>
+        <table>
+            <tr>
+                <th>Time Slot</th>
+                <th>Line 1</th>
+                <th>Line 2</th>
+                <th>Line 3</th>
+                <th>Total</th>
+            </tr>
+            <tr>
+                <td>08:00 - 09:00</td>
+                <td>0</td>
+                <td>0</td>
+                <td>0</td>
+                <td>0</td>
+            </tr>
+            <tr>
+                <td>09:00 - 10:00</td>
+                <td>0</td>
+                <td>0</td>
+                <td>0</td>
+                <td>0</td>
+            </tr>
+            <tr>
+                <td>10:00 - 11:00</td>
+                <td>0</td>
+                <td>0</td>
+                <td>0</td>
+                <td>0</td>
+            </tr>
+            <tr>
+                <td>11:00 - 12:00</td>
+                <td>0</td>
+                <td>0</td>
+                <td>0</td>
+                <td>0</td>
+            </tr>
+            <tr>
+                <td>12:00 - 13:00</td>
+                <td>0</td>
+                <td>0</td>
+                <td>0</td>
+                <td>0</td>
+            </tr>
+            <tr>
+                <td>13:00 - 14:00</td>
+                <td>0</td>
+                <td>0</td>
+                <td>0</td>
+                <td>0</td>
+            </tr>
+            <tr>
+                <td>14:00 - 15:00</td>
+                <td>0</td>
+                <td>0</td>
+                <td>0</td>
+                <td>0</td>
+            </tr>
+            <tr>
+                <td>15:00 - 16:00</td>
+                <td>0</td>
+                <td>0</td>
+                <td>0</td>
+                <td>0</td>
+            </tr>
+            <tr>
+                <td>16:00 - 17:00</td>
+                <td>0</td>
+                <td>0</td>
+                <td>0</td>
+                <td>0</td>
+            </tr>
+            <tr>
+                <td>17:00 - 18:00</td>
+                <td>0</td>
+                <td>0</td>
+                <td>0</td>
+                <td>0</td>
+            </tr>
+            <tr>
+                <td>18:00 - 19:00</td>
+                <td>0</td>
+                <td>0</td>
+                <td>0</td>
+                <td>0</td>
+            </tr>
+            <tr>
+                <td>Total</td>
+                <td>0</td>
+                <td>0</td>
+                <td>0</td>
+                <td>0</td>
+            </tr>
+        </table>
+       <h1 class="section-header">Current Month</h1>
+<div class="month-summary">
+  <div class="assembly">
+    <h1>Assembly</h1>
+    <h1>0</h1>
+  </div>
+  <div class="tested">
+    <h1>Tested</h1>
+    <h1>0</h1>
+  </div>
+  <div class="fg">
+    <h1>FG</h1>
+    <h1>0</h1>
+  </div>
+</div>
+
+<div class="line-container">
+  <div class="assembly">
+    <h1>Line 1</h1>
+    <h1>0</h1>
+  </div>
+  <div class="tested">
+    <h1>Line 2</h1>
+    <h1>0</h1>
+  </div>
+  <div class="repair">
+    <h1>Line 3</h1>
+    <h1>0</h1>
+  </div>
+  <div class="fg">
+    <h1>Total Milestone</h1>
+    <h1>0</h1>
+  </div>
+</div>
     </div>
 </body>
 </html>
