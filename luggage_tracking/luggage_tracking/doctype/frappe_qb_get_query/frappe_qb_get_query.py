@@ -3,7 +3,7 @@
 
 import frappe
 from frappe.model.document import Document
-from pypika.functions import Count, Sum, Avg, Max, Min, Abs, Coalesce
+from pypika.functions import Count, Sum, Avg, Max, Min, Abs, Concat
 
 
 
@@ -176,8 +176,21 @@ class FrappeQBGetQuery(Document):
 		# query2 = (frappe.qb.get_query("Form API", fields=[{"Coalesce": "weight", "as": "Values_without_null"}])).run(as_dict=True)
 		# print(query2,"------------Coalesce 1--------------")
 
-		# Working
-		query2 = (frappe.qb.get_query("Form API",  fields=["ifnull(weight,'onumilla') as all_weight"])).walk()     #.run(as_dict = True)
-		print(query2,"---------Coalesce 2--------")
+		# Not Working
+		# query2 = (frappe.qb.get_query("Form API",  fields=["Coalesce(weight,'onumilla') as all_weight"])).walk()     #.run(as_dict = True)
+		# print(query2,"---------Coalesce 2--------")
 
+		# ---------------------------------------------------------------------------------------------------------------------
 
+		# Concat
+
+		# Not Working
+		# query = frappe.qb.get_query("User", fields=[{"CONCAT": ["first_name", "' '", "last_name"], "as": "full_name"}])
+		# print(query3,"------------Concat 1---------------")
+
+		doc = frappe.get_list("Form API", fields=["name1", "link_field"])
+
+		print(doc)
+
+		query3 = (frappe.qb.get_query("Form API", fields=[Concat(doc.name1,doc.link_field)])).walk() #.run(as_dict = True)
+		print(query3,"--------------Concat 2-------------")

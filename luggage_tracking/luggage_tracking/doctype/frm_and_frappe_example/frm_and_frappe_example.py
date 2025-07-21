@@ -21,3 +21,4 @@ def scold():
 	frappe.msgprint("Scold")
 	return "Scold"
 
+s

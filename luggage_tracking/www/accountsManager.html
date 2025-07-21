@@ -1,1 +1,255 @@
-<h1>Accounts Manager Page</h1>
+{# Macros for page, and table #}
+{# Make a page with header / footer from given "content" #}
+{% macro make_page(content) %}
+    {% if letter_head %}
+        {{ letter_head }}
+    {% endif %}
+
+    <div class="container">
+        {{ content }}
+    </div>
+
+    {% if letter_head %}
+        <div id="footer-html" class="footer">
+            <div class="letter-head-footer">
+                {{ footer }}
+            </div>
+        </div>
+    {% endif %}
+    <div class="page-break"></div>
+{% endmacro %}
+
+{# Makes a table given the "header" row as a list of column headers, and #}
+{# data in "rows" as a 2D list. The table header is omitted if headers is #}
+{# None. For historical reasons, "headers" should be a list of strings for #}
+{# a single row of headers, or a list of list of strings for multiple rowa #}
+{# headers. Each row in "rows" must have the same length as "header" if #}
+{# headers are provided, else the same length as the first row. Else, it is #}
+{# skipped. Bootstrap 4 allows "th" tags with scope="row" to style row #}
+{# headers. Tags for data rows are normally "td", but can be made "th" if #}
+{# "tags" provides a list of tags for the columns (scope="row" is #}
+{# automatically applied). "classes" can be specified as a list of classes #}
+{# to be applied to columns. All lists must be the same length #}
+{% macro make_table(
+    rows, headers=None, tags=None, classes=None, margin_top='0', width='95%'
+) %}
+    {% if rows|length > 0 %}
+        <div class='row justify-content-center' style='margin-top: {{ margin_top }};'>
+            {# element style needs to be specified, else bootstrap.css #}
+            {# overrides it  #}
+            <table class='table table-bordered' style='margin-bottom: 0; width: {{ width }}; max-width: {{ width }};'>
+                {% if headers %}
+                    {% if headers[0] is string %}
+                        {% set nheaders = headers|length %}
+                    {% else %}
+                        {% set nheaders = headers[0]|length %}
+                    {% endif %}
+
+                    <thead class='thead-light'>
+                        {% if headers[0] is string %}
+                            <tr>
+                                {% for col in headers %}
+                                    <th scope='col'>{{ col }}</th>
+                                {% endfor %}
+                            </tr>
+                        {% else %}
+                            {% for header in headers %}
+                                {% if header|length == nheaders %}
+                                    <tr>
+                                        {% for col in header %}
+                                            <th scope='col'>{{ col }}</th>
+                                        {% endfor %}
+                                    </tr>
+                                {% endif %}
+                            {% endfor %}
+                        {% endif %}
+                    </thead>
+                {% endif %}
+
+                {# Assume that all lists are the same size, and take the #}
+                {# the no. of columns from "header", "col_widths", or from #}
+                {# the first row of "rows" #}
+                {% if nheaders is defined %}
+                    {% set ncols = nheaders %}
+                {% else %}
+                    {% set ncols = rows[0]|length %}
+                {% endif %}
+
+                <tbody>
+                    {% for row in rows %}
+                        {% if row|length == ncols %}
+                            {% set row_loop = loop %}
+                            <tr>
+                                {% for col in row %}
+                                    {% if tags %}
+                                        <{{ tags[loop.index0] }}{% if tags[loop.index0] == 'th' %} scope='row'{% endif %}{% if classes and classes[loop.index0] %} class='{{ classes[loop.index0] }}'{% endif %}>{{ col }}</{{ tags[loop.index0] }}>
+                                    {% else %}
+                                        <td{% if classes  and classes[loop.index0] %} class='{{ classes[loop.index0] }}'{% endif %}>{{ col }}</td>
+                                    {% endif %}
+                                {% endfor %}
+                            </tr>
+                        {% endif %}
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    {% endif %}
+{% endmacro %}
+
+{%  macro make_title( title, subtitle=None ) %}
+    <div class='row justify-content-center header-light' style='padding:10px 0 0 0;'>
+        <h2 class='text-center'>{{ title }}</h2>
+        {% if subtitle %}
+            <h4 class='text-center text-muted'>{{ subtitle }}</h4>
+        {% endif %}
+    </div>
+{% endmacro %}
+
+{% set beneficiaries = [] %}
+{% for beneficiary in doc.beneficiaries %}
+    {% set addr = frappe.get_doc( 'Address', beneficiary.site_address ) %}
+    {% set site_address = [addr.address_line1, addr.address_line2 or '', addr.city or '' + ',' + addr.state or '' + ' ' + addr.pincode or '' + ',' + addr.country]|join( '<br/>' ) %}
+
+    {% set contact = frappe.get_doc( 'Contact', beneficiary.contact ) %}
+    {% set full_name = [contact.first_name, contact.middle_name or '', contact.last_name or '']|join( ' ' ) %}
+
+    {% set emails = [] %}
+    {% for e in contact.email_ids %}
+        {% set _ = emails.append( e.email_id ) %}
+    {% endfor %}
+
+    {% set phones = [] %}
+    {% for p in contact.phone_nos %}
+        {% set _ = phones.append( p.phone ) %}
+    {% endfor %}
+
+    {% set _ = beneficiaries.append( ['Site address #' + loop.index|string, site_address] ) %}
+    {% set _ = beneficiaries.append( ['Contact person #' + loop.index|string, full_name] ) %}
+    {% set _ = beneficiaries.append( ['Contact number(s) #' + loop.index|string, phones|join( ', ' )] ) %}
+    {% set _ = beneficiaries.append( ['Contact email(s) #' + loop.index|string, emails|join( ', ' )] ) %}
+    {% set _ = beneficiaries.append( ['Contribution amount #' + loop.index|string, sf_fmt_rupees( beneficiary.amount )] ) %}
+{% endfor %}
+
+{% set contribution_classes=['', '', 'text-right'] %}
+{% set contribution_headers=['#', 'Contributor', 'Amount'] %}
+{% if doc.selco_foundation_amount == 0 %}
+    {% set contributions = [] %}
+{% else %}
+    {% set contributions = [[1, 'SELCO Foundation', sf_fmt_rupees( doc.selco_foundation_amount )]] %}
+{% endif %}
+{% for stakeholder in doc.stakeholders %}
+    {% set _ = contributions.append( [loop.index + 1, stakeholder.name1, sf_fmt_rupees( stakeholder.amount )] ) %}
+{% endfor %}
+
+{% set item_classes=['', '', '', '', '', 'text-right'] %}
+{% set item_headers = ['No.', 'Item code', 'Required By', 'End User Mapping.', 'Product Bundle', 'Quantity'] %}
+{% set items = [] %}
+{% set item_codes = [] %}
+{% set quantities = {} %}
+{% for item in doc.items %}
+    {% set _ = item_codes.append( item.item_code ) %}
+    {% set _ = quantities.update( { item.item_code or item.new_item_code: item.qty } ) %}
+{% endfor %}
+{% set prices = {} %}
+{% set item_prices = frappe.get_list( doctype='Item Price', fields=['item_code', 'price_list_rate'], filters={ 'item_code': ['in', item_codes], 'price_list': 'Standard Buying' } ) %}
+{% if item_prices %}
+    {% for item_price in item_prices %}
+        {% set _ = prices.update( { item_price.item_code: item_price.price_list_rate } ) %}
+    {% endfor %}
+{% endif %}
+{% for item in doc.items %}
+    {% set _ = items.append( [loop.index, item.item_code, item.schedule_date, item.end_user_mapping, item.product_bundle, item.qty)] ) %}
+{% endfor %}
+
+{% set bundle_item_headers = ['#', 'Item code', 'Item_name', 'Total qty.', 'UOM'] %}
+{% set bundle_item_names = frappe.get_list( doctype='Product Bundle', fields=['name'], filters={ 'name': ['in', item_codes] } ) %}
+{% if bundle_item_names %}
+    {% set product_bundles = [] %}
+    {% for name in bundle_item_names %}
+        {% set bundle_items = frappe.get_all( doctype='Product Bundle Item', fields=['item_code', 'qty', 'uom'], filters={ 'parent': name.name } ) %}
+
+        {% set bundle_qty = quantities[name.name] %}
+        {% set pb_items = [] %}
+        {% for bundle_item in bundle_items %}
+            {% set item = frappe.get_doc( 'Item', bundle_item.item_code ) %}
+            {% set qty = bundle_qty * bundle_item.qty %}
+            {% set _ = pb_items.append( [loop.index, bundle_item.item_code, item.item_name, qty|int, bundle_item.uom] ) %}
+        {% endfor %}
+
+        {% set _ = product_bundles.append( { 'name': name.name, 'qty': bundle_qty, 'items': pb_items } ) %}
+    {% endfor %}
+{% endif %}
+
+{# Start of printing #}
+{% if letter_head %}
+    {{ letter_head }}
+{% endif %}
+
+<div class='container'>
+    {% set title = 'Material request: ' + doc.name %}
+    {% if doc.status == 'Submitted' %}
+        {{ make_title( title ) }}
+    {% else %}
+        {% set subtitle = 'Status: ' + doc.status %}
+        {{ make_title( title, subtitle ) }}
+    {% endif %}
+
+    <!-- {{  make_table( [['Project name',  doc.project , 'Material request #',  doc.name ], ['Project code',  doc.project_code , 'Date',  doc.transaction_date ], ['Geography',  doc.geography , '', ''], ['Vertical',  doc.vertical , '', ''], ['Funders',  doc.project_funders , 'Project end date',  doc.project_expected_end_date ], ['Requested By', doc.poc_name, 'Required date', doc.schedule_date ], ['Point of contact',  doc.point_of_contact , '', '']], tags=['th', 'td', 'th', 'td'] ) }} -->
+    {{  make_table( [['Material Request Name',  doc.name , 'Purpose',  doc.material_request_type ], ['MR Status',  doc.custom_mr_status , 'Date',  doc.transaction_date ], ['Required Date',  doc.schedule_date , '', ''], ['Deliverable Types',  doc.custom_deliverable_types , '', '']], tags=['th', 'td', 'th', 'td'] ) }}
+
+    {% if doc.beneficiaries|length < 5 %}
+        {{ make_table( beneficiaries, tags=['th', 'td'] ) }}
+    {% else %}
+        {{ make_table( [['Beneficiaries', 'See annexure']], tags=['th', 'td'] ) }}
+    {% endif %}
+
+    {{ make_table( contributions, headers=contribution_headers, classes=contribution_classes ) }}
+
+    {{ make_table( items, headers=item_headers, classes=item_classes ) }}
+</div>
+
+{% if product_bundles is defined %}
+    <div class='container'>
+        {% for bundle in product_bundles  %}
+            <div class='row header-light' style='padding:25px 0 0 0; width: 98%;'>
+                <h3 class='font-weight-bold'>Product bundle: {{ bundle['name'] }} (qty. {{ bundle['qty'] }})</h3>
+            </div>
+
+            {{ make_table( bundle['items'], headers=bundle_item_headers ) }}
+        {% endfor %}
+    </div>
+{% endif %}
+
+{% if doc.terms or doc.terms_of_reference %}
+    <div class='container'>
+        {% if doc.terms %}
+            <div class='row header-light' style='padding:25px 0 0 0; width: 98%;'>
+                <h3 class='font-weight-bold'>Terms and conditions</h3>
+                <p>{{ doc.terms|safe }}</p>
+            </div>
+        {% endif %}
+
+        {% if doc.terms_of_reference %}
+            <div class='row header-light' style='padding:25px 0 0 0; width: 98%;'>
+                <h3 class='font-weight-bold'>Terms of reference</h3>
+                <p>{{ doc.terms_of_reference|safe }}</p>
+            </div>
+        {% endif %}
+    </div>
+{% endif %}
+
+{% if letter_head %}
+    <div id='footer-html' class='footer'>
+        <div class='letter-head-footer'>
+            {{ footer }}
+        </div>
+    </div>
+{% endif %}
+
+{# Remove comment marker to print document attachments in same PDF. This embedding works well for image files, bit not for PDFs and other formats
+{% set files = frappe.get_all( 'File', filters={ 'attached_to_doctype': 'Material request', 'attached_to_name': doc.name }, fields=['file_name', 'file_url']) %}
+{% for file in files %}
+<div class="page-break"></div>
+<embed src="{{ file.file_url}}" alt="{{ file.file_name }}" width="100%" height="100%" />
+{% endfor %}
+#}

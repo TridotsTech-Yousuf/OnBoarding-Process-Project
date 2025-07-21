@@ -1,5 +1,6 @@
 {
  "actions": [],
+ "allow_guest_to_view": 1,
  "allow_import": 1,
  "allow_rename": 1,
  "autoname": "Pass-.#####",
@@ -35,7 +36,10 @@
   "arrival_time",
   "section_break_ajmi",
   "barcode",
-  "barcode_image"
+  "barcode_image",
+  "web_view_tab",
+  "route",
+  "is_published"
  ],
  "fields": [
   {
@@ -43,13 +47,15 @@
    "fieldtype": "Data",
    "in_list_view": 1,
    "in_standard_filter": 1,
-   "label": "Passenger Name"
+   "label": "Passenger Name",
+   "search_index": 1
   },
   {
    "fieldname": "e_ticket_number",
    "fieldtype": "Data",
    "in_standard_filter": 1,
-   "label": "E Ticket Number"
+   "label": "E Ticket Number",
+   "search_index": 1
   },
   {
    "fieldname": "reservation_number",
@@ -107,13 +113,15 @@
   {
    "fieldname": "phone_number",
    "fieldtype": "Data",
-   "label": "Phone Number"
+   "label": "Phone Number",
+   "search_index": 1
   },
   {
    "fieldname": "email",
    "fieldtype": "Data",
    "label": "Email",
-   "options": "Email"
+   "options": "Email",
+   "search_index": 1
   },
   {
    "fieldname": "column_break_eszi",
@@ -182,13 +190,31 @@
    "fieldtype": "Image",
    "label": "Barcode Image",
    "options": "barcode"
+  },
+  {
+   "fieldname": "web_view_tab",
+   "fieldtype": "Tab Break",
+   "label": "Web View"
+  },
+  {
+   "fieldname": "route",
+   "fieldtype": "Data",
+   "label": "route"
+  },
+  {
+   "default": "0",
+   "fieldname": "is_published",
+   "fieldtype": "Check",
+   "label": "Is Published"
   }
  ],
  "grid_page_length": 50,
+ "has_web_view": 1,
  "index_web_pages_for_search": 1,
+ "is_published_field": "is_published",
  "links": [],
- "modified": "2025-06-17 17:47:14.041222",
- "modified_by": "Administrator",
+ "modified": "2025-07-14 14:01:35.090346",
+ "modified_by": "mohammedyousuf432003@gmail.com",
  "module": "Luggage Tracking",
  "name": "Passenger Verification",
  "naming_rule": "Expression (old style)",
@@ -207,8 +233,11 @@
    "write": 1
   }
  ],
+ "route": "route",
  "row_format": "Dynamic",
+ "search_fields": "passenger_name, phone_number, email",
  "sort_field": "modified",
  "sort_order": "DESC",
- "states": []
+ "states": [],
+ "title_field": "passenger_name"
 }

@@ -2,7 +2,7 @@
 # For license information, please see license.txt
 
 import frappe
-from frappe.model.document import Document
+from frappe.website.website_generator import WebsiteGenerator
 
 # API 3 - Upside
 @frappe.whitelist()
@@ -10,7 +10,7 @@ def sleep():
 	frappe.msgprint("Sleep")
 	return "Sleep"
 
-class Example(Document):
+class Example(WebsiteGenerator):
 
 	# API 1 - Inside Class
 	@frappe.whitelist()

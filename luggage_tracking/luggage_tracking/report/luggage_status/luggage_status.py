@@ -123,36 +123,36 @@ def get_report_summary(data):
 			"value":checkedIN,
 			"indicator":"Orange",
 			"label":"Checked IN",
-			"datatype": "Int"
+			"datatype": "data"
 		},
 		{
 			"value":loaded,
 			"indicator":"Red",
 			"label":"Loaded",
-			"datatype": "Int"
+			"datatype": "data"
 		},
 		{
 			"value":inTransit,
 			"indicator":"Blue",
 			"label":"In Transit",
-			"datatype": "Int"
+			"datatype": "data"
 		},
 		{
 			"value":unloaded,
 			"indicator":"Green",
 			"label":"Un Loaded",
-			"datatype": "Int"
+			"datatype": "data"
 		},
 				{
 			"value":inClaimArea,
 			"indicator":"Yellow",
 			"label":"In Claim Area",
-			"datatype": "Int"
+			"datatype": "data"
 		},
 				{
 			"value":collected,
 			"indicator":"Pink",
 			"label":"Collected",
-			"datatype": "Int"
+			"datatype": "data"
 		},
 	]

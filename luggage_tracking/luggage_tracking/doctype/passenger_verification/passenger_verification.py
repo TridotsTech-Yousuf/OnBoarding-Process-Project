@@ -2,7 +2,8 @@
 # For license information, please see license.txt
 
 import frappe
-from frappe.model.document import Document
+from frappe.website.website_generator import WebsiteGenerator
+from frappe.model.document import Document  
 import random
 import io
 import base64
@@ -12,7 +13,7 @@ from frappe.query_builder import DocType
 from frappe.query_builder.functions import Count
 
 
-class PassengerVerification(Document):
+class PassengerVerification(WebsiteGenerator):
     def validate(self):
         if self.is_verified:
             number = random.randint(1, 10)
@@ -30,6 +31,24 @@ class PassengerVerification(Document):
         base64_img = "data:image/png;base64," + base64.b64encode(img_bytes).decode()
         return base64_img
 
+    @frappe.whitelist()
+    def greet_passenger_email_sending(self):
+        if self.is_verified:
+            greet_email = frappe.db.get_single_value('Luggage Settings', 'greeting_email')
+            if greet_email:
+                subject = "Welcome Onboard!"
+                message = f"Welcome {self.passenger_name}, have a pleasant journey! <br /> Passenger Verification Successfully Completed."
+                frappe.sendmail(
+                    recipients=self.email,
+                    subject=subject,
+                    message=message,
+                    now=True
+                )
+                return {"Verification_Message":"Passenger Verified","Email_Message":"Email Sent"}
+            else:
+                return "Greet Email Settings is off"
+        else:
+            return "Passenger Not Verified"
 
 # Query Builder
 @frappe.whitelist()
@@ -58,10 +77,12 @@ def get_verified_passenger_luggage():
     # total_passengers = result[0]['total_passengers'] if result else 0
     # frappe.msgprint(f"Total Passengers: {total_passengers}")
 
+    count = 0
+
     for data in result:
-        frappe.msgprint(
-            data.passenger_name,
-        )
+        count += 1
+        frappe.msgprint(f"{count}. {data.passenger_name}")
+
 
     if result:
         return {"status": "success", "data": result}

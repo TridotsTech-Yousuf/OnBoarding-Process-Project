@@ -136,7 +136,7 @@ class Luggage(Document):
         return base64_img
 
 
-# Eample for Request Life Cycl
+# Eample for Request Life Cycle
 @frappe.whitelist()
 def download_luggage_tag(passenger_name):
     if passenger_name:

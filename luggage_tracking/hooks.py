@@ -8,6 +8,7 @@ app_license = "mit"
 # Apps
 # ------------------
 
+
 # used when your app depends on other apps to work. For example, 
 # if luggage_tracking needs another app like erpnext, you would write required_apps = ["erpnext"].
 # required_apps = []
@@ -257,8 +258,25 @@ app_license = "mit"
 
 # # Desk
 # app_include_js = [
-#     "https://checkout.razorpay.com/v1/checkout.js"
+    # "https://checkout.razorpay.com/v1/checkout.js"
 # ]
+
+page_renderer = "luggage_tracking.luggage_tracking.doctype.request_lifecycle.request_lifecycle.RequestLifecycle"
+
+# app_include_js = "/assets/luggage_tracking/js/chatbot.js"
+
+app_include_js = "/assets/luggage_tracking/js/floating_chatbot.js"
+
+# app_include_js = [
+#     "https://checkout.razorpay.com/v1/checkout.js",
+#     "/assets/luggage_tracking/js/chatbot.js",
+#     "/assets/luggage_tracking/js/floating_chatbot.js"
+# ]
+
+
+
+
+
 # app_include_js = "/assets/luggage_tracking/js/app_include.js" 
 
 # Portal 
