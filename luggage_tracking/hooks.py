@@ -289,9 +289,9 @@ app_include_js = "/assets/luggage_tracking/js/floating_chatbot.js"
 # page_js = {"test": "public/js/pageJs.js"} 
 
 # Sounds - frappe.utils.play_sound("ping")
-# sounds = [
-#     {"name": "ping", "src": "/assets/luggage_tracking/sound/ping.mp3", "volume": 0.5}
-# ]
+sounds = [
+    {"name": "ping", "src": "/assets/luggage_tracking/sound/ping.mp3", "volume": 0.5}
+]
 
 # Install Hooks - Not Working # -----------------------------------------------------------------------
 # Uninstall Hooks - Not Working # -----------------------------------------------------------------------
